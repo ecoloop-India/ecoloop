@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>EcoLoop - Plastic Transition & Sustainable Solutions Hub</title>
+<meta name="description" content="EcoLoop: single-use plastic reduction in India. Engineering Ethics and Sustainable Development, Group 7, Micro Project.">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f2f7f3;--card:#fff;--ink:#12332b;--mute:#4b6a60;--line:#d3e2d8;--leaf:#1f7a4d;--water:#1b6f9a;--gold:#f2b632;--soft:#e3f0e7;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1f1a;--card:#152b24;--ink:#e6f2ec;--mute:#9bb7ab;--line:#264238;--leaf:#4fc088;--water:#5bb6e0;--soft:#1b3a30}}
+:root[data-theme="dark"]{--bg:#0e1f1a;--card:#152b24;--ink:#e6f2ec;--mute:#9bb7ab;--line:#264238;--leaf:#4fc088;--water:#5bb6e0;--soft:#1b3a30}
+html{scroll-behavior:smooth;scroll-padding-top:env(safe-area-inset-top,0px)}
+body{background:var(--bg);color:var(--ink);font-family:'Bricolage Grotesque',system-ui,sans-serif;line-height:1.55}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px}
+.mute{color:var(--mute)}
+.btn{border-radius:10px;padding:.55rem 1rem;font-weight:600;font-size:.9rem;border:1.5px solid var(--leaf);color:var(--leaf);transition:background .15s}
+.btn:hover{background:var(--soft)}
+.btn-solid{background:var(--leaf);color:#fff}.btn-solid:hover{background:var(--leaf);filter:brightness(1.1)}
+:is(button,input,select,a):focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+input[type=range]{accent-color:var(--leaf);width:100%}
+.field{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:.5rem .75rem;width:100%;color:var(--ink)}
+.chip{border:1px solid var(--line);border-radius:999px;padding:.3rem .9rem;font-size:.85rem;background:var(--card)}
+.chip[aria-pressed=true]{background:var(--leaf);color:#fff;border-color:var(--leaf)}
+dialog{background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:14px;padding:1.25rem;max-width:min(92vw,28rem);width:100%}
+dialog::backdrop{background:rgba(0,0,0,.5)}
+.loop{animation:spin 24s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){.loop{animation:none}}
+</style>
+</head>
+<body>
+
+<header class="px-5 pt-14 pb-16 md:pt-20" style="background:linear-gradient(160deg,#0f4d33,#1b6f9a);color:#fff">
+  <div class="max-w-5xl mx-auto flex items-center gap-8">
+    <div class="flex-1">
+      <h1 class="text-4xl md:text-6xl font-extrabold leading-tight">EcoLoop</h1>
+      <p class="text-xl md:text-2xl font-semibold mt-1">Plastic Transition &amp; Sustainable Solutions Hub</p>
+      <p class="mt-4 inline-block px-3 py-1 rounded-lg text-sm font-semibold" style="background:rgba(255,255,255,.15)">Engineering Ethics and Sustainable Development, Group 7, Micro Project</p>
+      <p class="mt-3 max-w-xl opacity-90">A microproject to help India move off single-use plastic: work out what your habit costs, find local alternatives, refill your bottle in Kerala's hill stations, and know the rules.</p>
+      <nav class="mt-6 flex flex-wrap gap-2 text-sm font-semibold">
+        <a href="#lca" class="px-4 py-2 rounded-lg" style="background:var(--gold);color:#12332b">Calculate impact</a>
+        <a href="#sourcing" class="px-4 py-2 rounded-lg border border-white/50">Find suppliers</a>
+        <a href="#refill" class="px-4 py-2 rounded-lg border border-white/50">Refill stations</a>
+        <a href="#collect" class="px-4 py-2 rounded-lg border border-white/50">Collect waste</a>
+        <a href="#rules" class="px-4 py-2 rounded-lg border border-white/50">Rules</a>
+      </nav>
+    </div>
+    <svg class="loop hidden md:block shrink-0" width="150" height="150" viewBox="0 0 100 100" fill="none" stroke="#f2b632" stroke-width="7" stroke-linecap="round" aria-hidden="true">
+      <path d="M50 12a38 38 0 0 1 33 19"/><path d="M88 50a38 38 0 0 1-19 33" stroke="#fff"/><path d="M50 88A38 38 0 0 1 17 69" stroke="#9be0ba"/><path d="M12 50a38 38 0 0 1 19-33" stroke="#fff"/>
+    </svg>
+  </div>
+</header>
+
+<main class="max-w-5xl mx-auto px-5 py-12 space-y-16">
+
+<!-- LCA -->
+<section id="lca">
+  <h2 class="text-3xl font-extrabold">Life cycle calculator</h2>
+  <p class="mute mt-1 max-w-2xl">A reusable bag only beats plastic once you use it enough. Enter how many plastic carry bags you take home each week.</p>
+  <div class="card p-5 mt-5 grid md:grid-cols-2 gap-6">
+    <div>
+      <label for="weekly" class="font-semibold">Plastic carry bags per week: <output id="weeklyOut" class="text-xl" style="color:var(--leaf)">10</output></label>
+      <input id="weekly" type="range" min="1" max="60" value="10" class="mt-3">
+      <div class="flex items-center gap-2 mt-3">
+        <label for="weeklyNum" class="mute text-sm">Or type it</label>
+        <input id="weeklyNum" type="number" min="0" max="500" value="10" class="field !w-24">
+      </div>
+      <div class="mt-6 p-4 rounded-xl" style="background:var(--soft)">
+        <p class="mute text-sm">Bags eliminated per year</p>
+        <p id="yearly" class="text-5xl font-extrabold" style="color:var(--leaf)">520</p>
+        <p id="stack" class="mute text-sm mt-1"></p>
+      </div>
+    </div>
+    <div>
+      <h3 class="font-semibold mb-3">Break-even: reuses before the swap pays off</h3>
+      <div class="space-y-4">
+        <div>
+          <div class="flex justify-between text-sm"><span class="font-semibold">Cotton bag</span><span class="mute">50 to 150 reuses</span></div>
+          <div class="h-3 rounded-full mt-1" style="background:var(--soft)"><div class="h-3 rounded-full" style="background:var(--gold);width:100%"></div></div>
+          <p id="cottonTxt" class="text-sm mt-1"></p>
+        </div>
+        <div>
+          <div class="flex justify-between text-sm"><span class="font-semibold">Thick PE bag (over 120 micron)</span><span class="mute">5 to 10 reuses</span></div>
+          <div class="h-3 rounded-full mt-1" style="background:var(--soft)"><div class="h-3 rounded-full" style="background:var(--water);width:7%"></div></div>
+          <p id="peTxt" class="text-sm mt-1"></p>
+        </div>
+      </div>
+      <p class="mute text-xs mt-4">Assumes one reusable bag replaces one single-use bag per shopping trip. Break-even ranges are indicative figures from published life cycle studies; real values vary with material, size and how the bag is made.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Sourcing -->
+<section id="sourcing">
+  <h2 class="text-3xl font-extrabold">Alternative sourcing directory</h2>
+  <p class="mute mt-1 max-w-2xl">Local, decentralized supply for roadside vendors and small shops. Listings below are sample entries for the prototype. Replace them with verified suppliers.</p>
+  <div id="suppliers" class="grid md:grid-cols-3 gap-4 mt-5"></div>
+</section>
+
+<!-- Refill -->
+<section id="refill">
+  <h2 class="text-3xl font-extrabold">Kerala ecotourism refill tracker</h2>
+  <p class="mute mt-1 max-w-2xl">Filtered drinking water refill points for hill station visitors, in line with High Court directives to cut plastic bottle waste. Sample data for the prototype. Confirm locally before relying on it.</p>
+  <div class="flex flex-wrap items-center gap-2 mt-5" id="filters" role="group" aria-label="Filter by destination"></div>
+  <div class="flex items-center gap-2 mt-3 text-sm">
+    <input id="onlyActive" type="checkbox" class="w-4 h-4" style="accent-color:var(--leaf)">
+    <label for="onlyActive">Show active stations only</label>
+    <span id="count" class="mute ml-auto"></span>
+  </div>
+  <div id="stations" class="grid sm:grid-cols-2 md:grid-cols-3 gap-4 mt-4"></div>
+</section>
+
+<!-- Collection -->
+<section id="collect">
+  <h2 class="text-3xl font-extrabold">Waste collection</h2>
+  <p class="mute mt-1 max-w-2xl">Segregate, find a drop-off point, and request a pickup. Collection points and contacts are sample entries for the prototype. Rules differ by local body, so confirm with your panchayat or municipality.</p>
+
+  <div class="card p-5 mt-5">
+    <h3 class="text-xl font-bold">1. Where does this go?</h3>
+    <label for="seg" class="sr-only">Search an item</label>
+    <input id="seg" class="field mt-3" placeholder="Try: chips packet, PET bottle, thermocol plate" autocomplete="off">
+    <div id="segOut" class="grid sm:grid-cols-2 gap-3 mt-3"></div>
+  </div>
+
+  <div class="card p-5 mt-4">
+    <h3 class="text-xl font-bold">2. Collection point finder</h3>
+    <div class="grid sm:grid-cols-2 gap-3 mt-3">
+      <div><label for="cpD" class="text-sm font-semibold">District</label>
+        <select id="cpD" class="field mt-1"><option>All</option><option>Thiruvananthapuram</option><option>Kollam</option><option>Pathanamthitta</option><option>Alappuzha</option><option>Kottayam</option><option>Idukki</option><option>Ernakulam</option><option>Thrissur</option><option>Palakkad</option><option>Malappuram</option><option>Kozhikode</option><option>Wayanad</option><option>Kannur</option><option>Kasaragod</option></select></div>
+      <div><label for="cpT" class="text-sm font-semibold">Accepts</label>
+        <select id="cpT" class="field mt-1"><option>All</option><option>Carry bags</option><option>PET bottles</option><option>Multilayer packets</option></select></div>
+    </div>
+    <div id="cpOut" class="grid sm:grid-cols-2 gap-3 mt-4"></div>
+  </div>
+
+  <div class="card p-5 mt-4">
+    <h3 class="text-xl font-bold">3. Pickup request</h3>
+    <div class="grid sm:grid-cols-2 gap-3 mt-3">
+      <div><label for="pkTo" class="text-sm font-semibold">Send to</label>
+        <select id="pkTo" class="field mt-1"><option>Haritha Karma Sena member</option><option>Panchayat / ward office</option><option>Local scrap dealer</option></select></div>
+      <div><label for="pkW" class="text-sm font-semibold">Waste type</label>
+        <select id="pkW" class="field mt-1"><option>Plastic carry bags</option><option>PET bottles</option><option>Multilayer packets</option><option>Mixed clean dry plastic</option></select></div>
+      <div><label for="pkQ" class="text-sm font-semibold">Approx. quantity (kg)</label>
+        <input id="pkQ" type="number" min="1" value="5" class="field mt-1"></div>
+      <div><label for="pkN" class="text-sm font-semibold">Your name</label>
+        <input id="pkN" class="field mt-1" placeholder="Name"></div>
+      <div class="sm:col-span-2"><label for="pkL" class="text-sm font-semibold">Address or landmark</label>
+        <input id="pkL" class="field mt-1" placeholder="e.g. Near bus stand, Ward 7"></div>
+    </div>
+    <label for="pkM" class="text-sm font-semibold block mt-3">Message (ready to send)</label>
+    <textarea id="pkM" rows="5" class="field mt-1"></textarea>
+    <div class="flex flex-wrap gap-2 mt-3">
+      <button id="pkCopy" class="btn btn-solid">Copy message</button>
+      <a id="pkWa" class="btn" target="_blank" rel="noopener" href="#">Open in WhatsApp</a>
+    </div>
+    <p id="pkStat" class="text-sm mt-2" style="color:var(--leaf)" role="status"></p>
+  </div>
+</section>
+
+<!-- Rules -->
+<section id="rules">
+  <h2 class="text-3xl font-extrabold">Rules &amp; constitutional basis</h2>
+  <div class="grid md:grid-cols-2 gap-4 mt-5">
+    <article class="card p-5 md:row-span-2">
+      <h3 class="text-xl font-bold">19 banned single-use plastic items</h3>
+      <p class="mute text-sm mt-1">Under the national ban in force from 1 July 2022 (Plastic Waste Management Amendment Rules, 2021):</p>
+      <ul class="mt-3 text-sm grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-1 list-disc pl-5">
+        <li>Earbuds with plastic sticks</li><li>Balloon sticks</li><li>Plastic flags</li><li>Candy sticks</li><li>Ice-cream sticks</li>
+        <li>Polystyrene (thermocol) for decoration</li><li>Plates</li><li>Cups</li><li>Glasses</li><li>Forks</li><li>Spoons</li><li>Knives</li>
+        <li>Straws</li><li>Trays</li><li>Wrapping films around sweet boxes</li><li>Invitation cards</li><li>Cigarette packets</li>
+        <li>PVC banners under 100 micron</li><li>Stirrers</li>
+      </ul>
+    </article>
+    <article class="card p-5">
+      <h3 class="text-xl font-bold">The 120-micron rule</h3>
+      <p class="mt-2 text-sm">Plastic carry bags must be at least <strong>120 microns</strong> thick (since 31 December 2022, up from 75 microns). Thicker bags are harder to discard after one use and easier to reuse and recycle.</p>
+    </article>
+    <article class="card p-5">
+      <h3 class="text-xl font-bold">Constitutional hooks</h3>
+      <p class="mt-2 text-sm"><strong>Article 21</strong>: the right to life, which courts have read to include a clean and healthy environment.</p>
+      <p class="mt-2 text-sm"><strong>Article 51A(g)</strong>: a fundamental duty of every citizen to protect and improve the natural environment and have compassion for living creatures.</p>
+    </article>
+  </div>
+  <p class="mute text-xs mt-3">Summary for awareness only. Check current notifications from the Ministry of Environment, Forest and Climate Change and the Kerala government for exact scope and exemptions.</p>
+</section>
+</main>
+
+<footer class="px-5 py-8 text-center mute text-sm">EcoLoop: a microproject for single-use plastic reduction in India.<br>Engineering Ethics and Sustainable Development, Group 7, Micro Project.</footer>
+
+<dialog id="dlg">
+  <form method="dialog" id="inqForm">
+    <h3 class="text-xl font-bold" id="dlgTitle">Inquiry</h3>
+    <label class="block text-sm font-semibold mt-3" for="shop">Your shop or stall name</label>
+    <input id="shop" class="field mt-1" placeholder="e.g. Rajan's Tea Stall, Munnar">
+    <label class="block text-sm font-semibold mt-3" for="qty">Quantity needed per month</label>
+    <input id="qty" type="number" min="1" value="500" class="field mt-1">
+    <label class="block text-sm font-semibold mt-3" for="msg">Message (ready to send)</label>
+    <textarea id="msg" rows="5" class="field mt-1"></textarea>
+    <div class="flex gap-2 mt-4 justify-end">
+      <button type="button" id="copyBtn" class="btn btn-solid">Copy message</button>
+      <button value="close" class="btn">Close</button>
+    </div>
+    <p id="copied" class="text-sm mt-2" style="color:var(--leaf)" role="status"></p>
+  </form>
+</dialog>
+
+<script>
+// ---- LCA ----
+const $ = id => document.getElementById(id);
+function calc(v){
+  v = Math.max(0, Math.round(+v || 0));
+  const yr = v * 52;
+  $('weeklyOut').textContent = v; $('yearly').textContent = yr.toLocaleString('en-IN');
+  $('stack').textContent = `About ${(yr * 0.0000012 * 1000).toFixed(1)} kg of thin plastic film avoided each year (assuming ~1.2 g per bag).`;
+  const wk = n => v ? (n / v) : Infinity;
+  const fmt = w => w === Infinity ? 'n/a' : (w < 1 ? 'under a week' : w < 52 ? `${Math.ceil(w)} weeks` : `${(w/52).toFixed(1)} years`);
+  $('cottonTxt').textContent = `Using one cotton bag every trip, you reach 50 reuses in ${fmt(wk(50))} and 150 reuses in ${fmt(wk(150))}.`;
+  $('peTxt').textContent = `A thick PE bag reaches 5 reuses in ${fmt(wk(5))} and 10 reuses in ${fmt(wk(10))}.`;
+}
+$('weekly').addEventListener('input', e => { $('weeklyNum').value = e.target.value; calc(e.target.value); });
+$('weeklyNum').addEventListener('input', e => { $('weekly').value = Math.min(60, e.target.value || 0); calc(e.target.value); });
+calc(10);
+
+// ---- Suppliers (sample data) ----
+const suppliers = [
+  {n:'Bagasse tableware unit', t:'Sugarcane-fibre plates, bowls and cups', loc:'Sample listing, Kerala', tag:'Compostable', c:'#f2b632'},
+  {n:'Kudumbashree cloth bag unit', t:'Stitched cotton and jute carry bags, made by women\'s self-help groups', loc:'Sample listing, district unit', tag:'Reusable', c:'#1f7a4d'},
+  {n:'Certified biopolymer supplier', t:'Bags and films certified compostable under IS/ISO 17088', loc:'Sample listing, India', tag:'Certified', c:'#1b6f9a'}
+];
+$('suppliers').innerHTML = suppliers.map((s,i)=>`
+  <article class="card p-5 flex flex-col">
+    <span class="chip self-start" style="border-color:${s.c};color:${s.c}">${s.tag}</span>
+    <h3 class="text-lg font-bold mt-3">${s.n}</h3>
+    <p class="text-sm mt-1 flex-1">${s.t}</p>
+    <p class="mute text-xs mt-2">${s.loc}</p>
+    <div class="flex gap-2 mt-4">
+      <button class="btn flex-1" data-i="${i}" data-k="inquiry">Send inquiry</button>
+      <button class="btn btn-solid flex-1" data-i="${i}" data-k="bulk">Bulk order</button>
+    </div>
+  </article>`).join('');
+
+const dlg = $('dlg');
+let cur = null;
+function buildMsg(){
+  const s = suppliers[cur.i], bulk = cur.k === 'bulk';
+  $('msg').value = bulk
+    ? `Hello ${s.n},\nI run ${$('shop').value || 'a small shop'} and want to place a bulk order of ${$('qty').value || '___'} units per month to replace single-use plastic. Please share your price list, minimum order size, delivery options and sample availability.\nThank you.`
+    : `Hello ${s.n},\nI run ${$('shop').value || 'a small shop'} and would like to know more about your products. Could you share prices, minimum order and delivery to my area? My monthly need is around ${$('qty').value || '___'} units.\nThank you.`;
+}
+$('suppliers').addEventListener('click', e => {
+  const b = e.target.closest('button'); if(!b) return;
+  cur = {i:+b.dataset.i, k:b.dataset.k};
+  $('dlgTitle').textContent = (cur.k === 'bulk' ? 'Bulk order: ' : 'Inquiry: ') + suppliers[cur.i].n;
+  $('copied').textContent = ''; buildMsg(); dlg.showModal();
+});
+['shop','qty'].forEach(id => $(id).addEventListener('input', buildMsg));
+$('copyBtn').addEventListener('click', async () => {
+  try { await navigator.clipboard.writeText($('msg').value); $('copied').textContent = 'Copied. Paste it into WhatsApp, SMS or email.'; }
+  catch(e){ $('msg').select(); $('copied').textContent = 'Select the text above and copy it.'; }
+});
+
+// ---- Refill tracker (sample data) ----
+const stations = [
+  ['Munnar','Munnar town bus stand','Active'],['Munnar','Tea Museum entrance','Active'],['Munnar','Mattupetty Dam viewpoint','Maintenance'],
+  ['Wayanad','Kalpetta town square','Active'],['Wayanad','Edakkal Caves base','Active'],['Wayanad','Banasura Sagar gate','Planned'],
+  ['Vagamon','Vagamon meadows gate','Active'],['Vagamon','Pine Valley parking','Planned'],
+  ['Athirappilly','Falls main entrance','Active'],['Athirappilly','Vazhachal checkpoint','Maintenance']
+].map(([d,l,s]) => ({d,l,s}));
+let dist = 'All';
+const dists = ['All','Munnar','Wayanad','Vagamon','Athirappilly'];
+const col = {Active:'#1f7a4d', Maintenance:'#c27a00', Planned:'#1b6f9a'};
+function drawFilters(){
+  $('filters').innerHTML = dists.map(d => `<button class="chip" aria-pressed="${d===dist}" data-d="${d}">${d}</button>`).join('');
+}
+function drawStations(){
+  const only = $('onlyActive').checked;
+  const list = stations.filter(s => (dist==='All'||s.d===dist) && (!only||s.s==='Active'));
+  $('count').textContent = `${list.length} station${list.length===1?'':'s'}`;
+  $('stations').innerHTML = list.length ? list.map(s => `
+    <article class="card p-4">
+      <p class="mute text-sm">${s.d}</p>
+      <h3 class="font-bold">${s.l}</h3>
+      <p class="mt-2 text-sm font-semibold flex items-center gap-2"><span style="width:10px;height:10px;border-radius:50%;background:${col[s.s]};display:inline-block"></span>${s.s}</p>
+    </article>`).join('') : '<p class="mute col-span-full">No stations match. Clear the active-only filter or pick another destination.</p>';
+}
+$('filters').addEventListener('click', e => { const b = e.target.closest('button'); if(!b) return; dist = b.dataset.d; drawFilters(); drawStations(); });
+$('onlyActive').addEventListener('change', drawStations);
+drawFilters(); drawStations();
+
+// ---- Segregation guide ----
+const items = [
+  ['Plastic carry bag (clean, dry)','Dry waste bin','Recyclable if clean. Bundle them together so they do not blow away.'],
+  ['PET water bottle','Dry waste bin','Recyclable. Empty, rinse, crush and cap it.'],
+  ['Chips / biscuit packet','Dry waste bin','Multilayer film is hard to recycle. Hand it to the Haritha Karma Sena collection.'],
+  ['Thermocol plate or cup','Dry waste bin','Single-use polystyrene is banned. Do not burn it. Recycling is rarely available.'],
+  ['Plastic cutlery or straw','Dry waste bin','Banned single-use item. Switch to a reusable or wooden alternative.'],
+  ['Food-soiled plastic','Rinse first, then dry waste','Dirty plastic contaminates recycling. Wash off food first.'],
+  ['Paper cup (plastic lined)','Dry waste bin','Lining makes recycling difficult. Carry a reusable cup instead.'],
+  ['Bagasse plate','Wet / compost waste','Compostable plant fibre. Keep it out of the plastic bin.'],
+  ['Glass bottle','Glass / return to shop','Reuse or return it. Do not mix it with plastic.'],
+  ['Cotton cloth bag','Keep and reuse','Break-even takes 50 to 150 uses, so use it for years.']
+];
+function segDraw(){
+  const q = $('seg').value.trim().toLowerCase();
+  const r = items.filter(i => !q || i[0].toLowerCase().includes(q) || i[2].toLowerCase().includes(q));
+  $('segOut').innerHTML = r.length ? r.map(i => `<div class="p-3 rounded-xl" style="background:var(--soft)"><p class="font-semibold">${i[0]}</p><p class="text-sm font-semibold" style="color:var(--leaf)">${i[1]}</p><p class="text-sm mute">${i[2]}</p></div>`).join('') : '<p class="mute col-span-full">No match. Ask your ward member or local body when unsure.</p>';
+}
+$('seg').addEventListener('input', segDraw); segDraw();
+
+// ---- Collection points (sample data) ----
+const pts = [
+  ['Idukki','Munnar panchayat material recovery facility',['Carry bags','PET bottles','Multilayer packets']],
+  ['Idukki','Vagamon tourist drop-off bin',['PET bottles']],
+  ['Wayanad','Kalpetta municipal MCF',['Carry bags','PET bottles','Multilayer packets']],
+  ['Wayanad','Sulthan Bathery collection shed',['Carry bags','Multilayer packets']],
+  ['Kottayam','Vagamon road collection point',['PET bottles','Carry bags']],
+  ['Thrissur','Athirappilly panchayat collection unit',['PET bottles','Carry bags','Multilayer packets']]
+];
+function cpDraw(){
+  const d = $('cpD').value, t = $('cpT').value;
+  const r = pts.filter(p => (d==='All'||p[0]===d) && (t==='All'||p[2].includes(t)));
+  $('cpOut').innerHTML = r.length ? r.map(p => `<div class="p-3 rounded-xl border" style="border-color:var(--line)"><p class="mute text-xs">${p[0]}</p><p class="font-semibold">${p[1]}</p><p class="text-sm mute">Accepts: ${p[2].join(', ')}</p></div>`).join('') : `<p class="mute col-span-full">No collection points listed yet${d==='All'?'':' for '+d}. Ask your panchayat, municipality or Haritha Karma Sena, or use the pickup request below.</p>`;
+}
+$('cpD').addEventListener('change', cpDraw); $('cpT').addEventListener('change', cpDraw); cpDraw();
+
+// ---- Pickup request ----
+function pkBuild(){
+  $('pkM').value = `Hello,\nI would like to request a pickup of ${$('pkW').value.toLowerCase()} (about ${$('pkQ').value || '___'} kg). The waste is segregated, clean and dry.\nAddress: ${$('pkL').value || '___'}\nName: ${$('pkN').value || '___'}\nPlease let me know a suitable day and time. Thank you.\n(To: ${$('pkTo').value})`;
+  $('pkWa').href = 'https://wa.me/?text=' + encodeURIComponent($('pkM').value);
+}
+['pkTo','pkW','pkQ','pkN','pkL'].forEach(id => { $(id).addEventListener('input', pkBuild); $(id).addEventListener('change', pkBuild); });
+$('pkCopy').addEventListener('click', async () => {
+  try { await navigator.clipboard.writeText($('pkM').value); $('pkStat').textContent = 'Copied. Paste it into WhatsApp, SMS or email.'; }
+  catch(e){ $('pkM').select(); $('pkStat').textContent = 'Select the text above and copy it.'; }
+});
+pkBuild();
+</script>
+</body>
+</html>

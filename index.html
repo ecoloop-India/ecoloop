@@ -28,37 +28,79 @@ input[type=range]{accent-color:var(--leaf);width:100%}
 dialog{background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:14px;padding:1.25rem;max-width:min(92vw,28rem);width:100%}
 dialog::backdrop{background:rgba(0,0,0,.5)}
 .loop{animation:spin 24s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
-@media(prefers-reduced-motion:reduce){.loop{animation:none}}
+.bub{position:absolute;bottom:-60px;border-radius:50%;background:rgba(255,255,255,.14);animation:rise 14s linear infinite}
+@keyframes rise{to{transform:translateY(-520px) scale(1.2);opacity:0}}
+.float{animation:bob 3.5s ease-in-out infinite}@keyframes bob{50%{transform:translateY(-8px)}}
+.rv{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease}.rv.in{opacity:1;transform:none}
+.bar{transform-origin:left;animation:grow 1.2s ease-out both}@keyframes grow{from{transform:scaleX(0)}}
+.card{transition:transform .2s,box-shadow .2s}.card:hover{transform:translateY(-3px);box-shadow:0 8px 20px rgba(0,0,0,.12)}
+.pulse{animation:pl 1.8s ease-out infinite}@keyframes pl{0%{box-shadow:0 0 0 0 var(--c)}100%{box-shadow:0 0 0 9px transparent}}
+.hero{background:linear-gradient(120deg,#0f4d33,#1b6f9a,#14805a,#0f4d33);background-size:300% 300%;animation:gshift 14s ease infinite}
+@keyframes gshift{50%{background-position:100% 50%}}
+.drift{position:absolute;left:-10%;font-size:2rem;opacity:.45;animation:drift 20s linear infinite}
+@keyframes drift{to{transform:translateX(125vw) rotate(360deg)}}
+.wave{position:absolute;left:0;bottom:-1px;width:200%;height:60px;animation:wv 12s linear infinite}
+@keyframes wv{to{transform:translateX(-50%)}}
+.marq{display:flex;width:max-content;animation:mq 34s linear infinite}.marq:hover{animation-play-state:paused}
+@keyframes mq{to{transform:translateX(-50%)}}
+.nl{padding:.25rem .65rem;border-radius:8px}.nl:hover,.nl.on{background:var(--soft);color:var(--leaf)}
+.h2{font-size:1.9rem;font-weight:800;position:relative;display:inline-block;padding-bottom:.45rem}
+.h2::after{content:"";position:absolute;left:0;bottom:0;height:4px;width:48px;border-radius:4px;background:linear-gradient(90deg,var(--leaf),var(--gold));transition:width .9s ease}
+.in .h2::after{width:100%}
+@keyframes pop{from{opacity:0;transform:translateY(16px) scale(.96)}}
+.in .card{animation:pop .6s ease backwards}
+.in .grid>.card:nth-child(2){animation-delay:.1s}.in .grid>.card:nth-child(3){animation-delay:.2s}.in .grid>.card:nth-child(4){animation-delay:.3s}.in .grid>.card:nth-child(5){animation-delay:.4s}.in .grid>.card:nth-child(n+6){animation-delay:.5s}
+.btn-solid{position:relative;overflow:hidden}
+.btn-solid::after{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.4),transparent);transform:skewX(-20deg);animation:sh 3.5s ease-in-out infinite}
+@keyframes sh{60%,100%{left:130%}}
+header.hero,footer.text-center,main.mx-auto,nav>div.mx-auto{padding-left:max(1.5rem,env(safe-area-inset-left));padding-right:max(1.5rem,env(safe-area-inset-right))}
+header.hero{padding-top:3.5rem}
+header .flex-1{min-width:0}
+header h1,header p{overflow-wrap:anywhere}
+@media(min-width:768px){header.hero,main.mx-auto,nav>div.mx-auto,footer.text-center{padding-left:max(2.5rem,env(safe-area-inset-left));padding-right:max(2.5rem,env(safe-area-inset-right))}}
+@media(prefers-reduced-motion:reduce){.loop,.bub,.float,.bar,.pulse,.hero,.drift,.wave,.marq,.btn-solid::after,.in .card{animation:none}.rv{opacity:1;transform:none;transition:none}.card{transition:none}}
 </style>
 </head>
 <body>
+<div id="prog" style="position:fixed;top:env(safe-area-inset-top,0px);left:0;height:3px;width:0;background:var(--gold);z-index:60"></div>
+<nav class="sticky z-50 border-b" style="top:env(safe-area-inset-top,0px);background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-color:var(--line)">
+<div class="max-w-5xl mx-auto px-5 flex items-center gap-1 overflow-x-auto whitespace-nowrap text-sm font-semibold py-2"><span class="font-extrabold mr-2" style="color:var(--leaf)">♻ EcoLoop</span><a class="nl" href="#lca">Calculator</a><a class="nl" href="#sourcing">Suppliers</a><a class="nl" href="#refill">Refill</a><a class="nl" href="#collect">Collect waste</a><a class="nl" href="#rules">Rules</a></div></nav>
 
-<header class="px-5 pt-14 pb-16 md:pt-20" style="background:linear-gradient(160deg,#0f4d33,#1b6f9a);color:#fff">
-  <div class="max-w-5xl mx-auto flex items-center gap-8">
+<header class="hero relative overflow-hidden px-5 pt-14 pb-24 md:pt-20" style="color:#fff">
+  <span class="drift" style="top:12%;animation-delay:0s" aria-hidden="true">🛍️</span>
+  <span class="drift" style="top:38%;animation-delay:-6s" aria-hidden="true">🌿</span>
+  <span class="drift" style="top:62%;animation-delay:-12s" aria-hidden="true">💧</span>
+  <span class="drift" style="top:24%;animation-delay:-17s" aria-hidden="true">♻️</span>
+  <span class="drift" style="top:74%;animation-delay:-3s" aria-hidden="true">🌍</span>
+  <span class="bub" style="left:6%;width:28px;height:28px;animation-delay:0s" aria-hidden="true"></span>
+  <span class="bub" style="left:22%;width:54px;height:54px;animation-delay:3s" aria-hidden="true"></span>
+  <span class="bub" style="left:45%;width:20px;height:20px;animation-delay:6s" aria-hidden="true"></span>
+  <span class="bub" style="left:63%;width:64px;height:64px;animation-delay:1.5s" aria-hidden="true"></span>
+  <span class="bub" style="left:80%;width:34px;height:34px;animation-delay:8s" aria-hidden="true"></span>
+  <span class="bub" style="left:92%;width:22px;height:22px;animation-delay:4.5s" aria-hidden="true"></span>
+  <div class="relative z-10 max-w-5xl mx-auto flex items-center gap-4 md:gap-8">
     <div class="flex-1">
       <h1 class="text-4xl md:text-6xl font-extrabold leading-tight">EcoLoop</h1>
       <p class="text-xl md:text-2xl font-semibold mt-1">Plastic Transition &amp; Sustainable Solutions Hub</p>
       <p class="mt-4 inline-block px-3 py-1 rounded-lg text-sm font-semibold" style="background:rgba(255,255,255,.15)">Engineering Ethics and Sustainable Development, Group 7, Micro Project</p>
       <p class="mt-3 max-w-xl opacity-90">A microproject to help India move off single-use plastic: work out what your habit costs, find local alternatives, refill your bottle in Kerala's hill stations, and know the rules.</p>
-      <nav class="mt-6 flex flex-wrap gap-2 text-sm font-semibold">
-        <a href="#lca" class="px-4 py-2 rounded-lg" style="background:var(--gold);color:#12332b">Calculate impact</a>
-        <a href="#sourcing" class="px-4 py-2 rounded-lg border border-white/50">Find suppliers</a>
-        <a href="#refill" class="px-4 py-2 rounded-lg border border-white/50">Refill stations</a>
-        <a href="#collect" class="px-4 py-2 rounded-lg border border-white/50">Collect waste</a>
-        <a href="#rules" class="px-4 py-2 rounded-lg border border-white/50">Rules</a>
-      </nav>
+      <div class="mt-6 flex flex-wrap gap-2 text-sm font-semibold"><a href="#lca" class="px-5 py-2.5 rounded-lg" style="background:var(--gold);color:#12332b">Calculate your impact</a><a href="#rules" class="px-5 py-2.5 rounded-lg border border-white/50">Know the rules</a></div>
     </div>
-    <svg class="loop hidden md:block shrink-0" width="150" height="150" viewBox="0 0 100 100" fill="none" stroke="#f2b632" stroke-width="7" stroke-linecap="round" aria-hidden="true">
+    <svg class="loop shrink-0 w-20 h-20 md:w-[150px] md:h-[150px]" viewBox="0 0 100 100" fill="none" stroke="#f2b632" stroke-width="7" stroke-linecap="round" aria-hidden="true">
       <path d="M50 12a38 38 0 0 1 33 19"/><path d="M88 50a38 38 0 0 1-19 33" stroke="#fff"/><path d="M50 88A38 38 0 0 1 17 69" stroke="#9be0ba"/><path d="M12 50a38 38 0 0 1 19-33" stroke="#fff"/>
     </svg>
   </div>
+  <svg class="wave" viewBox="0 0 1440 80" preserveAspectRatio="none" aria-hidden="true"><path style="fill:var(--bg)" d="M0 40 Q180 0 360 40 T720 40 T1080 40 T1440 40 V80 H0Z"/></svg>
 </header>
+<div class="overflow-hidden border-y py-2 text-sm font-semibold" style="border-color:var(--line)" aria-hidden="true"><div class="marq"><span class="px-6">♻️ Carry bags must be at least 120 microns thick</span><span class="px-6">🚫 19 single-use plastic items banned</span><span class="px-6">💧 Refill your bottle, skip the plastic</span><span class="px-6">🛍️ A cotton bag pays off after 50 to 150 uses</span><span class="px-6">🌿 Article 51A(g): a duty to protect the environment</span><span class="px-6">🏔️ Munnar · Wayanad · Vagamon · Athirappilly</span><span class="px-6">♻️ Carry bags must be at least 120 microns thick</span><span class="px-6">🚫 19 single-use plastic items banned</span><span class="px-6">💧 Refill your bottle, skip the plastic</span><span class="px-6">🛍️ A cotton bag pays off after 50 to 150 uses</span><span class="px-6">🌿 Article 51A(g): a duty to protect the environment</span><span class="px-6">🏔️ Munnar · Wayanad · Vagamon · Athirappilly</span></div></div>
 
 <main class="max-w-5xl mx-auto px-5 py-12 space-y-16">
 
+<div class="stats grid grid-cols-2 md:grid-cols-4 gap-3"><div class="card p-4 text-center"><p class="text-4xl font-extrabold" style="color:var(--leaf)"><span data-count="19">19</span><span class="text-xl"></span></p><p class="mute text-sm">banned items</p></div><div class="card p-4 text-center"><p class="text-4xl font-extrabold" style="color:var(--leaf)"><span data-count="120">120</span><span class="text-xl"> µm</span></p><p class="mute text-sm">minimum bag thickness</p></div><div class="card p-4 text-center"><p class="text-4xl font-extrabold" style="color:var(--leaf)"><span data-count="14">14</span><span class="text-xl"></span></p><p class="mute text-sm">Kerala districts</p></div><div class="card p-4 text-center"><p class="text-4xl font-extrabold" style="color:var(--leaf)"><span data-count="4">4</span><span class="text-xl"></span></p><p class="mute text-sm">hill station refill zones</p></div></div>
+
 <!-- LCA -->
 <section id="lca">
-  <h2 class="text-3xl font-extrabold">Life cycle calculator</h2>
+  <h2 class="h2">Life cycle calculator</h2>
   <p class="mute mt-1 max-w-2xl">A reusable bag only beats plastic once you use it enough. Enter how many plastic carry bags you take home each week.</p>
   <div class="card p-5 mt-5 grid md:grid-cols-2 gap-6">
     <div>
@@ -79,12 +121,12 @@ dialog::backdrop{background:rgba(0,0,0,.5)}
       <div class="space-y-4">
         <div>
           <div class="flex justify-between text-sm"><span class="font-semibold">Cotton bag</span><span class="mute">50 to 150 reuses</span></div>
-          <div class="h-3 rounded-full mt-1" style="background:var(--soft)"><div class="h-3 rounded-full" style="background:var(--gold);width:100%"></div></div>
+          <div class="h-3 rounded-full mt-1" style="background:var(--soft)"><div class="bar h-3 rounded-full" style="background:var(--gold);width:100%"></div></div>
           <p id="cottonTxt" class="text-sm mt-1"></p>
         </div>
         <div>
           <div class="flex justify-between text-sm"><span class="font-semibold">Thick PE bag (over 120 micron)</span><span class="mute">5 to 10 reuses</span></div>
-          <div class="h-3 rounded-full mt-1" style="background:var(--soft)"><div class="h-3 rounded-full" style="background:var(--water);width:7%"></div></div>
+          <div class="h-3 rounded-full mt-1" style="background:var(--soft)"><div class="bar h-3 rounded-full" style="background:var(--water);width:7%;animation-delay:.3s"></div></div>
           <p id="peTxt" class="text-sm mt-1"></p>
         </div>
       </div>
@@ -95,14 +137,14 @@ dialog::backdrop{background:rgba(0,0,0,.5)}
 
 <!-- Sourcing -->
 <section id="sourcing">
-  <h2 class="text-3xl font-extrabold">Alternative sourcing directory</h2>
+  <h2 class="h2">Alternative sourcing directory</h2>
   <p class="mute mt-1 max-w-2xl">Local, decentralized supply for roadside vendors and small shops. Listings below are sample entries for the prototype. Replace them with verified suppliers.</p>
   <div id="suppliers" class="grid md:grid-cols-3 gap-4 mt-5"></div>
 </section>
 
 <!-- Refill -->
 <section id="refill">
-  <h2 class="text-3xl font-extrabold">Kerala ecotourism refill tracker</h2>
+  <h2 class="h2">Kerala ecotourism refill tracker</h2>
   <p class="mute mt-1 max-w-2xl">Filtered drinking water refill points for hill station visitors, in line with High Court directives to cut plastic bottle waste. Sample data for the prototype. Confirm locally before relying on it.</p>
   <div class="flex flex-wrap items-center gap-2 mt-5" id="filters" role="group" aria-label="Filter by destination"></div>
   <div class="flex items-center gap-2 mt-3 text-sm">
@@ -115,7 +157,7 @@ dialog::backdrop{background:rgba(0,0,0,.5)}
 
 <!-- Collection -->
 <section id="collect">
-  <h2 class="text-3xl font-extrabold">Waste collection</h2>
+  <h2 class="h2">Waste collection</h2>
   <p class="mute mt-1 max-w-2xl">Segregate, find a drop-off point, and request a pickup. Collection points and contacts are sample entries for the prototype. Rules differ by local body, so confirm with your panchayat or municipality.</p>
 
   <div class="card p-5 mt-5">
@@ -162,7 +204,7 @@ dialog::backdrop{background:rgba(0,0,0,.5)}
 
 <!-- Rules -->
 <section id="rules">
-  <h2 class="text-3xl font-extrabold">Rules &amp; constitutional basis</h2>
+  <h2 class="h2">Rules &amp; constitutional basis</h2>
   <div class="grid md:grid-cols-2 gap-4 mt-5">
     <article class="card p-5 md:row-span-2">
       <h3 class="text-xl font-bold">19 banned single-use plastic items</h3>
@@ -210,10 +252,23 @@ dialog::backdrop{background:rgba(0,0,0,.5)}
 <script>
 // ---- LCA ----
 const $ = id => document.getElementById(id);
+const calmMotion = matchMedia('(prefers-reduced-motion:reduce)').matches;
+let _raf;
+function animateNum(el, to){
+  cancelAnimationFrame(_raf);
+  const from = parseInt(el.textContent.replace(/,/g,'')) || 0;
+  if (calmMotion) { el.textContent = to.toLocaleString('en-IN'); return; }
+  const t0 = performance.now();
+  (function step(t){
+    const p = Math.min(1, (t - t0) / 500);
+    el.textContent = Math.round(from + (to - from) * p).toLocaleString('en-IN');
+    if (p < 1) _raf = requestAnimationFrame(step);
+  })(t0);
+}
 function calc(v){
   v = Math.max(0, Math.round(+v || 0));
   const yr = v * 52;
-  $('weeklyOut').textContent = v; $('yearly').textContent = yr.toLocaleString('en-IN');
+  $('weeklyOut').textContent = v; animateNum($('yearly'), yr);
   $('stack').textContent = `About ${(yr * 0.0000012 * 1000).toFixed(1)} kg of thin plastic film avoided each year (assuming ~1.2 g per bag).`;
   const wk = n => v ? (n / v) : Infinity;
   const fmt = w => w === Infinity ? 'n/a' : (w < 1 ? 'under a week' : w < 52 ? `${Math.ceil(w)} weeks` : `${(w/52).toFixed(1)} years`);
@@ -283,7 +338,7 @@ function drawStations(){
     <article class="card p-4">
       <p class="mute text-sm">${s.d}</p>
       <h3 class="font-bold">${s.l}</h3>
-      <p class="mt-2 text-sm font-semibold flex items-center gap-2"><span style="width:10px;height:10px;border-radius:50%;background:${col[s.s]};display:inline-block"></span>${s.s}</p>
+      <p class="mt-2 text-sm font-semibold flex items-center gap-2"><span class="${s.s==='Active'?'pulse':''}" style="--c:${col[s.s]};width:10px;height:10px;border-radius:50%;background:${col[s.s]};display:inline-block"></span>${s.s}</p>
     </article>`).join('') : '<p class="mute col-span-full">No stations match. Clear the active-only filter or pick another destination.</p>';
 }
 $('filters').addEventListener('click', e => { const b = e.target.closest('button'); if(!b) return; dist = b.dataset.d; drawFilters(); drawStations(); });
@@ -337,6 +392,25 @@ $('pkCopy').addEventListener('click', async () => {
   catch(e){ $('pkM').select(); $('pkStat').textContent = 'Select the text above and copy it.'; }
 });
 pkBuild();
+
+// ---- Motion ----
+$('yearly').parentElement.classList.add('float');
+const deco = {lca:'🧮',sourcing:'🏭',refill:'💧',collect:'🗑️',rules:'⚖️'};
+document.querySelectorAll('main section').forEach(sec => { sec.style.position='relative'; sec.insertAdjacentHTML('afterbegin', `<span aria-hidden="true" class="float" style="position:absolute;right:0;top:-6px;font-size:2.2rem">${deco[sec.id]||''}</span>`); });
+function countUp(el, to){ const t0=performance.now(); (function f(t){ const p=Math.min(1,(t-t0)/1200); el.textContent=Math.round(to*p); if(p<1) requestAnimationFrame(f); })(t0); }
+if (!calmMotion && 'IntersectionObserver' in window) {
+  document.querySelectorAll('[data-count]').forEach(c => c.textContent = 0);
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); e.target.querySelectorAll('[data-count]').forEach(c => countUp(c, +c.dataset.count)); io.unobserve(e.target); } }), {threshold:0.08});
+  document.querySelectorAll('main section, .stats').forEach(el => { el.classList.add('rv'); io.observe(el); });
+}
+const secs = [...document.querySelectorAll('main section')], nls = [...document.querySelectorAll('.nl')];
+function onScroll(){
+  const h = document.documentElement, max = h.scrollHeight - h.clientHeight;
+  $('prog').style.width = (max > 0 ? window.scrollY / max * 100 : 0) + '%';
+  let cur = ''; secs.forEach(x => { if (x.getBoundingClientRect().top < window.innerHeight * 0.35) cur = x.id; });
+  nls.forEach(l => l.classList.toggle('on', l.getAttribute('href') === '#' + cur));
+}
+addEventListener('scroll', onScroll, {passive:true}); onScroll();
 </script>
 </body>
 </html>
